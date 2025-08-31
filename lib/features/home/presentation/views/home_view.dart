@@ -18,7 +18,7 @@ import '../widgets/floating_action_button.dart';
 import '../widgets/home_view_body.dart';
 import '../widgets/logged_out_widget.dart';
 import '../widgets/tab_bar_widget.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -43,12 +43,12 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Image.asset(
-          AppAssets.splashImage,
+        title: SvgPicture.asset(
+          AppAssets.logo_app,
           fit: BoxFit.cover,
+          height: 32.h,
+          width: 50.w,
         ),
-
-        leading: SizedBox(),
         elevation: 0,
         backgroundColor: ColorManager.buttonColor,
         actions: [

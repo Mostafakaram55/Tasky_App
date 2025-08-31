@@ -37,7 +37,7 @@ class OnBoardingViewBody extends StatelessWidget {
               CustomTextWidget(
                 colorText:Colors.grey ,
                 fontWeight:FontWeight.w400 ,
-                size:14.sp ,
+                size:15.sp ,
                 title:TextManager.onBoardinText2,
                 maxLines: 3,
               ),

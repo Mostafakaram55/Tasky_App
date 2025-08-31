@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/functions/capitalize_text.dart';
+import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart' show ColorManager;
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/widgets/custom_drop_down.dart';
@@ -22,10 +24,9 @@ class SelectTaskPriority extends StatelessWidget {
       messageForValidate: 'Please Choose Priority',
       border: AppConstants.removeBorder,
       focusedBorder: AppConstants.removeBorder,
-      icon: Icon(
-        Icons.arrow_drop_down_sharp,
-        color:ColorManager.buttonColor,
-        size: 25.sp,
+      icon:SvgPicture.asset(
+        AppAssets.arrow_down,
+        color: ColorManager.buttonColor,
       ),
       items: ['low', 'medium', 'high']
           .map(
@@ -33,10 +34,9 @@ class SelectTaskPriority extends StatelessWidget {
           value:value,
           child: Row(
             children: [
-              Icon(
-                Icons.flag_outlined,
+              SvgPicture.asset(
+                AppAssets.flag,
                 color: ColorManager.buttonColor,
-                size: 18.sp,
               ),
               SizedBox(width:7.h,),
               CustomTextWidget(

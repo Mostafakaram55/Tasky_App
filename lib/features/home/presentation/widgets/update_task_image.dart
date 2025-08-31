@@ -12,6 +12,7 @@ import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
 import '../cubits/task_crud_cubit/task_curd_cubit.dart';
 import '../cubits/task_crud_cubit/task_curd_states.dart';
+import 'alert_dialog_widget.dart';
 
 class UpdateTaskImage extends StatelessWidget {
   const UpdateTaskImage({super.key, required this.imageUrl});
@@ -24,39 +25,42 @@ class UpdateTaskImage extends StatelessWidget {
           onTap: (){
             showAdaptiveDialog(
               context: contextForBloc,
-              builder: (context) => AlertDialog(
-                backgroundColor:Colors.grey[200],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                actionsAlignment: MainAxisAlignment.spaceEvenly,
-                title: Center(
-                  child: CustomTextWidget(
-                      title: TextManager.chooseImage,
-                      colorText: Colors.black,
-                      size: 20.sp,
-                      fontWeight: FontWeight.w500
-                  ),
-                ),
-                actions: [
-                  CustomIconButton(
-                      iconBroken: IconBroken.Camera,
-                      operation: (){
-                        contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
-                        context.pop();
-                      },
-                      colorIcon: ColorManager.buttonColor
-                  ),
-                  CustomIconButton(
-                      iconBroken:IconBroken.Image,
-                      operation: (){
-                        contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
-                        context.pop();
-                      },
-                      colorIcon: ColorManager.buttonColor
-                  ),
-                ],
-              ),
+              builder: (context) {
+                return AlertDialogWidget(
+                  title:TextManager.chooseImage,
+                  items: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: CircleAvatar(
+                        backgroundColor: ColorManager.buttonColor,
+                        child: CustomIconButton(
+                            iconBroken: IconBroken.Camera,
+                            operation: (){
+                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
+                              context.pop();
+                            },
+                            colorIcon: ColorManager.white
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: CircleAvatar(
+                        backgroundColor: ColorManager.buttonColor,
+                        child: CustomIconButton(
+                            iconBroken:IconBroken.Image,
+                            operation: (){
+                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
+                              context.pop();
+                            },
+                            colorIcon: ColorManager.white
+                        ),
+                      ),
+                    ),
+                  ],
+
+                );
+              },
             );
           },
           child: DottedBorder(

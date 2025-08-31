@@ -36,10 +36,8 @@ class LoginTextFiledSection extends StatelessWidget {
                 : Icon(Icons.visibility, size: 20.sp),
           ),
           hintText: 'Password',
-          obscureText:
-          context.read<SignInCubit>().isVisiblePassword,
-          textEditingController:
-          SignInCubit.get(context).passwordController,
+          obscureText: context.read<SignInCubit>().isVisiblePassword,
+          textEditingController: SignInCubit.get(context).passwordController,
           textInputType: TextInputType.visiblePassword,
           validator: (value) {
             if (value!.isEmpty) {

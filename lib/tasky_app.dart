@@ -1,5 +1,4 @@
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,8 +16,6 @@ class TaskApp extends StatelessWidget {
         return MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
           theme: ThemeData(
             useMaterial3: false,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

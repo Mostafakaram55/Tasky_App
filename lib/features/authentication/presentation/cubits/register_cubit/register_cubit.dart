@@ -25,7 +25,8 @@ class SignUPCubit extends Cubit<SignUpStates>{
   PhoneNumber phoneNumber=PhoneNumber(countryISOCode: '', countryCode: '', number: '');
 
   List<String> levels=['fresh', 'junior', 'midLevel', 'senior'];
-  bool isVisiblePassword=true;
+
+  bool isVisiblePasswordS=true;
 
   var  formRegisterKey = GlobalKey<FormState>();
   String selectedValue='fresh';
@@ -38,10 +39,12 @@ class SignUPCubit extends Cubit<SignUpStates>{
     this.phoneNumber=phoneNumber;
     emit(ChangeSelectedPhoneNumberStateSignUp());
   }
-  void changeVisiblePassword(){
-    isVisiblePassword=!isVisiblePassword;
+  void changeVisiblePasswordS(){
+    isVisiblePasswordS=!isVisiblePasswordS;
     emit(ChangeVisiblePasswordSignUp());
   }
+
+
   Future<void> signUp()async{
     emit(LoadingSignUpState());
     var result= await signUpUseCase.call(SignUpParam(

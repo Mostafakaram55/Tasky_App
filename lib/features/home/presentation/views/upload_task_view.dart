@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../config/icons/icons_broken.dart';
+import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/widgets/arrow_left_icon.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart' show CustomTextWidget;
 import '../cubits/task_crud_cubit/task_curd_cubit.dart';
@@ -39,10 +41,13 @@ class _UploadTaskViewState extends State<UploadTaskView> {
                 title: CustomTextWidget(
                     title: 'Add New Task',
                     colorText: Colors.white, size: 16.sp, fontWeight: FontWeight.bold),
-                leading: CustomIconButton(iconBroken: IconBroken.Arrow___Left_3, operation: (){
-                  context.pop();
-                }, colorIcon: Colors.white
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: ArrowLeftIcon(
+                    operation: AppRouter.goBack,
+                  ),
                 ),
+                leadingWidth: 50.w,
               ),
               body: UploadTaskViewBody()
           ),

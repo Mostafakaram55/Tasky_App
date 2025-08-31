@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:tasky_app/core/utils/app_assets.dart';
 
 import '../../../../core/functions/capitalize_text.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -17,10 +19,9 @@ class SelectTaskStatus extends StatelessWidget {
     return  CustomDropdown(
      backgroundColor:ColorManager.inprogressButton,
      value:  context.read<TaskOperationsCubit>().selectedStatus,
-        icon: Icon(
-          Icons.arrow_drop_down_sharp,
-          color:ColorManager.buttonColor,
-          size: 25.sp,
+        icon: SvgPicture.asset(
+          AppAssets.arrow_down,
+          color: ColorManager.buttonColor,
         ),
     hintText: 'Choose Status',
     messageForValidate: 'Please Choose Status',

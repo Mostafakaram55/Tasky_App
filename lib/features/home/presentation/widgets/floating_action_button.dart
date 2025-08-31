@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasky_app/core/utils/app_assets.dart';
 import 'package:tasky_app/core/utils/app_colors.dart';
 import 'package:tasky_app/features/home/presentation/cubits/get_task_cubit/get_task_cubit.dart';
 
@@ -27,11 +29,11 @@ class FloatingActionButtonsSection extends StatelessWidget {
                 context.push(AppRouter.scanView,extra:context );
               },
               backgroundColor: Colors.white,
-              child:  Icon(
-                Icons.qr_code,
-                size: MediaQuery.sizeOf(context).width > 780
-                    ? 25.sp
-                    : 28.sp,
+              child:  SvgPicture.asset(
+                AppAssets.scan_image,
+                width: MediaQuery.sizeOf(context).width > 700
+                    ? 26.sp
+                    : 29.sp,
                 color: ColorManager.buttonColor,
               ),
             ),

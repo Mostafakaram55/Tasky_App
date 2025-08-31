@@ -19,12 +19,7 @@ void main()async{
   AppConstants.refreshToken=CacheHelper.getData(key: 'refresh_token')??'';
   Bloc.observer=MyBlocObserver();
   runApp(
-      DevicePreview(
-        enabled: true,
-        builder: (context){
-          return  const Tasky();
-        },
-      )
+     const Tasky()
   );
 }
 

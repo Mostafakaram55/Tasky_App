@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tasky_app/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:tasky_app/features/authentication/presentation/widgets/have_email_widget.dart';
-import 'package:tasky_app/features/authentication/presentation/widgets/section_text_filed_for_signup.dart';
+import 'package:tasky_app/features/authentication/presentation/widgets/signUp_text_fileds_section.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 import '../../../../config/local/cache_helper.dart';
@@ -61,6 +61,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           progressIndicator:  const CircularProgressIndicator(),
           child: SafeArea(
             child: Form(
+              key: context.read<SignUPCubit>().formRegisterKey,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

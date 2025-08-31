@@ -2,31 +2,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/phone_number.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:tasky_app/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import '../../../../../core/widgets/custom_text_widget.dart';
-import '../../../../config/local/cache_helper.dart';
-import '../../../../config/routes/app_routes.dart';
-import '../../../../core/functions/show_snak_bar.dart';
 import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_constants.dart';
 import '../../../../core/widgets/custom_drop_down.dart';
 import '../../../../core/widgets/custom_text_form_filed.dart';
 import '../../../../core/widgets/custom_text_filed_phone.dart';
 import '../cubits/register_cubit/register_cubit.dart';
-import '../cubits/register_cubit/register_state.dart';
 
 class SignUpSectionTextFiled extends StatelessWidget {
   const SignUpSectionTextFiled({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-    key: context.read<SignUPCubit>().formRegisterKey,
-    child: Column(
+    return BlocBuilder<SignUPCubit, SignUpStates>(
+    builder: (context, state) {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextWidget(
@@ -113,7 +106,14 @@ class SignUpSectionTextFiled extends StatelessWidget {
         CustomTextFormFiled(
           textEditingController:  context.read<SignUPCubit>().passwordController,
           textInputType: TextInputType.visiblePassword,
-          obscureText: context.read<SignUPCubit>().isVisiblePassword,
+          widgetIconPrefix: Icon(Icons.lock),
+          widgetIconsuffix: IconButton(
+            onPressed: () {
+              context.read<SignUPCubit>().changeVisiblePasswordS();
+            },
+            icon: context.read<SignUPCubit>().isVisiblePasswordS ? Icon(Icons.visibility_off, size: 20.sp) : Icon(Icons.visibility, size: 20.sp),
+          ),
+          obscureText: context.read<SignUPCubit>().isVisiblePasswordS,
           validator: (value) {
             if(value!.isNotEmpty){
               if(value.length<8){
@@ -125,17 +125,12 @@ class SignUpSectionTextFiled extends StatelessWidget {
             return null;
           },
           hintText: TextManager.passwordText,
-          widgetIconPrefix: Icon(Icons.lock),
-          widgetIconsuffix: IconButton(
-            onPressed: () {
-              context.read<SignUPCubit>().changeVisiblePassword();
-            },
-            icon: context.read<SignUPCubit>().isVisiblePassword? Icon(Icons.visibility_off):Icon(Icons.visibility),
-          ),
+
         ),
         SizedBox(height: 16.h),
       ],
-    ),
     );
+  },
+);
   }
 }

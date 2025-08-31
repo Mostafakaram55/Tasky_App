@@ -12,6 +12,7 @@ import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/cubits/get_task_cubit/get_task_states.dart';
 
 import '../../../../config/icons/icons_broken.dart';
+import '../../../../core/widgets/arrow_left_icon.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
 import '../cubits/get_task_cubit/get_task_cubit.dart';
@@ -79,9 +80,13 @@ class _ScanViewState extends State<ScanView> {
               centerTitle: false,
               backgroundColor:ColorManager.buttonColor,
               title:CustomTextWidget(title: TextManager.scan, colorText: Colors.white, size: 16.sp, fontWeight: FontWeight.w700),
-              leading: CustomIconButton(iconBroken: IconBroken.Arrow___Left_3, operation: (){
-                AppRouter.goBack();
-              }, colorIcon: Colors.white),
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: ArrowLeftIcon(
+                  operation: AppRouter.goBack,
+                ),
+              ),
+              leadingWidth: 50.w,
             ) ,
             body: QRView(
               key: GlobalKey(debugLabel: 'QR'),

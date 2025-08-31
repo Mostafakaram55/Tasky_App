@@ -16,6 +16,7 @@ class CustomIconButton extends StatelessWidget {
         icon:Icon(
           iconBroken,
           color: colorIcon,
-        ) );
+        )
+    );
   }
 }
