@@ -49,8 +49,10 @@ class  AuthenticationRepositoryImplementation implements  AuthenticationReposito
       return Right(user);
     }catch (e){
       if(e is DioException){
+        print(e.toString());
         return Left(ServerFailure.fromDioError(e));
       }
+      print(e.toString());
       return Left(ServerFailure(e.toString()));
     }
   }

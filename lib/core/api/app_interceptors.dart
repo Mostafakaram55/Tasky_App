@@ -1,14 +1,10 @@
 
 import 'package:dio/dio.dart';
-
-
 import '../../config/local/cache_helper.dart';
 import '../../config/routes/app_routes.dart';
+import '../errors/failures.dart';
 import '../utils/app_constants.dart';
 import 'end_pionts.dart';
-
-
-
 class ApiInterceptor extends Interceptor {
   final Dio dio;
   ApiInterceptor(this.dio);
@@ -51,6 +47,15 @@ class ApiInterceptor extends Interceptor {
       }
       super.onError(err, handler);
     }
+    final failure = ServerFailure.fromDioError(err);
+    return handler.reject(
+      DioException(
+        requestOptions: err.requestOptions,
+        error: failure.message,
+        type: err.type,
+        response: err.response,
+      ),
+    );
 
   }
 }

@@ -8,7 +8,6 @@ class ApiService {
   ApiInterceptor apiInterceptor;
   ApiService(this.apiInterceptor){
     BaseOptions options=BaseOptions(
-
         baseUrl: EndPoints.baseUrlEndpoint,
         receiveDataWhenStatusError: true,
         connectTimeout: const Duration(seconds: 15),
