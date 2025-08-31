@@ -27,8 +27,9 @@ class OnBoardingViewBody extends StatelessWidget {
               CustomTextWidget(
                 colorText:Colors.black ,
                 fontWeight:FontWeight.w700 ,
-                size:24 ,
+                size:24.sp ,
                 title:TextManager.onBoardinText1,
+                maxLines: 2,
               ),
               SizedBox(
                 height: 10.h,
@@ -36,8 +37,9 @@ class OnBoardingViewBody extends StatelessWidget {
               CustomTextWidget(
                 colorText:Colors.grey ,
                 fontWeight:FontWeight.w400 ,
-                size:14 ,
+                size:14.sp ,
                 title:TextManager.onBoardinText2,
+                maxLines: 3,
               ),
               SizedBox(
                 height: 20.h,

@@ -14,7 +14,6 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
 import '../widgets/alert_dialog_widget.dart';
-import '../widgets/custom_tab_item.dart';
 import '../widgets/floating_action_button.dart';
 import '../widgets/home_view_body.dart';
 import '../widgets/logged_out_widget.dart';
@@ -43,11 +42,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
+        centerTitle: true,
         title: Image.asset(
           AppAssets.splashImage,
           fit: BoxFit.cover,
         ),
+
+        leading: SizedBox(),
         elevation: 0,
         backgroundColor: ColorManager.buttonColor,
         actions: [
@@ -64,7 +65,34 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               showAdaptiveDialog(
                 context: context,
                 builder: (context) {
-                  return AlertDialogWidget();
+                  return AlertDialogWidget(
+                    title: TextManager.titleDialogLogOut,
+                    items: [
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: 20.h),
+                        child: LoggedOutWidget(
+                          operation: (){
+                            CacheHelper.remove(key: 'access_token').then((_) {
+                              if (context.mounted) {
+                                AppRouter.navigateTo(
+                                  AppRouter.kSignInView,
+                                );
+                              }
+                            }
+                            );
+                          }, icon: IconBroken.Logout,
+                        ),
+                      ),
+                      Padding(
+                        padding:  EdgeInsets.only(bottom: 20.h),
+                        child: LoggedOutWidget(
+                          operation: (){
+                            AppRouter.goBack();
+                          }, icon: IconBroken.Close_Square,
+                        ),
+                      ),
+                    ],
+                  );
                 }
               );
             },
@@ -87,7 +115,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     fontWeight: FontWeight.bold,
                     size: 16.sp,
                   ),
-                  SizedBox(height: 8,),
+                  SizedBox(height: 8.h,),
                   TabBarWidget(),
                 ],
               ),

@@ -11,6 +11,5 @@ class SuccessSignInState extends SignInStates{
 }
 class ErrorSignInState extends SignInStates{
   final String message ;
-
   ErrorSignInState( {required this.message});
 }

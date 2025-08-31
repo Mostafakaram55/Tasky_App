@@ -10,13 +10,17 @@ class TextManager{
   static String  logIn='Log In';
   static String signUp='Sign Up';
   static String myTasks='My Tasks';
+  static String signUpHere='Sign Up here';
+  static String phoneErrorMessage='please enter  phone ';
   static String scan='Scan';
   static String titleDialogLogOut='You will be logged out.';
   static String allTaskText='All';
   static String waitingTaskText='Waiting';
+  static String addImage='Add Img';
   static String inprogressTaskText='Inprogress';
   static String finishedTaskText='Finished';
   static String listEmpty='"⚠️ The list is empty. No data to display."';
+  static String successfulSignIn= 'Good job, your release is successful. Have a nice day';
   static String edit='Edite';
   static String delete='Delete';
   static String passwordText='Password';
@@ -28,7 +32,7 @@ class TextManager{
   static String uploadImage='But the image upload failed';
   static String successMessage='Task updated successfully';
   static String errorMessage='Failed to update the task. Please try again';
-  static String taskTitle='Task title';
+  static String taskTitle='Task Title';
   static String taskDescription='Task Description';
   static String priority='Priority';
   static String status='Status';

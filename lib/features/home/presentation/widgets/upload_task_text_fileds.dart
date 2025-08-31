@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
+import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/widgets/select_task_priority.dart';
 
 import '../../../../core/functions/capitalize_text.dart';
@@ -23,7 +24,7 @@ class SectionTaskFileds extends StatelessWidget {
       children: [
         SizedBox(height: 16.h,),
         CustomTextWidget(
-            title: 'Task title',
+            title: TextManager.taskTitle,
             colorText: ColorManager.titleFormAddTask,
             size: 14.sp,
             fontWeight: FontWeight.w400
@@ -44,7 +45,7 @@ class SectionTaskFileds extends StatelessWidget {
         ),
         SizedBox(height: 16.h,),
         CustomTextWidget(
-            title: 'Task Description',
+            title: TextManager.taskDescription,
             colorText: ColorManager.titleFormAddTask,
             size: 14.sp,
             fontWeight: FontWeight.w400

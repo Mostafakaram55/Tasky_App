@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tasky_app/core/utils/app_strings.dart';
 
 import '../../../../config/icons/icons_broken.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -14,6 +15,7 @@ import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
 import '../cubits/task_crud_cubit/task_curd_cubit.dart';
 import '../cubits/task_crud_cubit/task_curd_states.dart';
+import 'alert_dialog_widget.dart';
 
 class UploadImageTask extends StatelessWidget {
   const UploadImageTask({super.key});
@@ -25,39 +27,41 @@ class UploadImageTask extends StatelessWidget {
           onTap: (){
             showAdaptiveDialog(
               context: contextForBloc,
-              builder: (context) => AlertDialog(
-                backgroundColor:Colors.grey[200],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                actionsAlignment: MainAxisAlignment.spaceEvenly,
-                title: Center(
-                  child: CustomTextWidget(
-                      title: 'Choose Image Form',
-                      colorText: Colors.black,
-                      size: 20.sp,
-                      fontWeight: FontWeight.w500
-                  ),
-                ),
-                actions: [
-                  CustomIconButton(
-                      iconBroken: IconBroken.Camera,
-                      operation: (){
-                        contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
-                        context.pop();
-                      },
-                      colorIcon: ColorManager.buttonColor
-                  ),
-                  CustomIconButton(
-                      iconBroken:IconBroken.Image,
-                      operation: (){
-                        contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
-                        context.pop();
-                      },
-                      colorIcon: ColorManager.buttonColor
-                  ),
-                ],
-              ),
+              builder: (context) {
+                return AlertDialogWidget(
+                  title: TextManager.chooseImage,
+                  items: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: CircleAvatar(
+                        backgroundColor: ColorManager.buttonColor,
+                        child: CustomIconButton(
+                            iconBroken: IconBroken.Camera,
+                            operation: (){
+                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
+                              context.pop();
+                            },
+                            colorIcon: ColorManager.white
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: CircleAvatar(
+                        backgroundColor: ColorManager.buttonColor,
+                        child: CustomIconButton(
+                            iconBroken:IconBroken.Image,
+                            operation: (){
+                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
+                              context.pop();
+                            },
+                            colorIcon: ColorManager.white
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
           },
           child: DottedBorder(
@@ -73,7 +77,8 @@ class UploadImageTask extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: context.read<TaskOperationsCubit>().imageTask==null? Row(
+              child: context.read<TaskOperationsCubit>().imageTask==null?
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomIconButton(
@@ -82,13 +87,14 @@ class UploadImageTask extends StatelessWidget {
                       colorIcon:ColorManager.buttonColor
                   ),
                   CustomTextWidget(
-                      title: 'Add Img',
+                      title: TextManager.addImage,
                       colorText: ColorManager.buttonColor,
                       size: 19.sp, fontWeight: FontWeight.w500
                   ),
                 ],
-              ):ClipRRect(
-                borderRadius: BorderRadius.circular(10),
+              ):
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.r),
                 child: Image.file(
                   context.read<TaskOperationsCubit>().imageTask!,
                   fit: BoxFit.cover,

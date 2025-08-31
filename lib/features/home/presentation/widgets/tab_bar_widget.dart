@@ -17,7 +17,7 @@ class TabBarWidget extends StatefulWidget {
 class _TabBarWidgetState extends State<TabBarWidget> {
   @override
   Widget build(BuildContext context) {
-    return    TabBar(
+    return  TabBar(
         controller:  AppConstants.tabController,
         splashBorderRadius:BorderRadius.circular(12.r),
         tabAlignment:TabAlignment.center,

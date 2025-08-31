@@ -16,7 +16,7 @@ class ServerFailure extends Failure {
       case DioExceptionType.badCertificate:
         return ServerFailure('connectionTimeout  with api server');
       case DioExceptionType.badResponse:
-        return ServerFailure.badResponseError(
+        return ServerFailure.fromDioResponse(
             e.response!.statusCode!, e.response!.data);
       case DioExceptionType.cancel:
         return ServerFailure('request to ApiServer was canceled');
@@ -27,16 +27,18 @@ class ServerFailure extends Failure {
     }
   }
 
-  factory ServerFailure.badResponseError(int statuesCode, dynamic response){
-    if (statuesCode == 400) {
-      return ServerFailure(' your request was not found ,please try later');
-    } else if (statuesCode == 500) {
-      return ServerFailure(' There is a problem server ,please try later');
-    } else if (statuesCode == 400 || statuesCode == 401 || statuesCode == 402|| statuesCode == 403|| statuesCode == 404 || statuesCode == 422) {
-      return ServerFailure(response['message']);
-    } else {
-      return ServerFailure('There was an error ,please tray again');
+  factory ServerFailure.fromDioResponse(int statsCode, dynamic response) {
+    switch (statsCode) {
+      case 401:
+      case 402:
+      case 403:
+      case 422:
+      case 404:
+        return ServerFailure(response['message']);
+      case 500:
+        return ServerFailure('Internal server error, Please try later!');
+      default:
+        return ServerFailure('Opps there was an error, Please try again!');
     }
   }
-
 }

@@ -31,6 +31,7 @@ class UploadTaskViewBody extends StatelessWidget {
         return Form(
           key: context.read<TaskOperationsCubit>().formUploadTaskKey,
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(

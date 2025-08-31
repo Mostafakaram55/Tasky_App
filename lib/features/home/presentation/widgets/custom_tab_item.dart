@@ -21,7 +21,7 @@ class CustomTabContainer extends StatelessWidget {
         color: containerColor,
       ),
       child:Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.all(8.0.r),
         child: CustomTextWidget(
             title: title,
             colorText: textColor,

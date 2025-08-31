@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/widgets/task_item_widget.dart';
 
+import '../../../../config/routes/app_routes.dart';
 import '../cubits/get_task_cubit/get_task_cubit.dart';
 import '../cubits/get_task_cubit/get_task_states.dart';
 import 'empty_list.dart';
@@ -30,8 +31,13 @@ class _InProgressListViewState extends State<InProgressListView> {
         if(GetTasksCubit.get(context).inProgress.isNotEmpty){
           return ListView.separated(
               itemBuilder: (context, index) {
-                return TaskItemWidget(
-                  taskEntity:inProgressList[index] ,
+                return GestureDetector(
+                  onTap: (){
+                    AppRouter.navigateTo(AppRouter.detailsView,extra:inProgressList[index]);
+                  },
+                  child: TaskItemWidget(
+                    taskEntity:inProgressList[index] ,
+                  ),
                 );
               },
               separatorBuilder: (context, index) => SizedBox(height: 20.h,),

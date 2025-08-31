@@ -8,18 +8,20 @@ class CustomTextWidget extends StatelessWidget {
     required this.title,
     required this.colorText,
     required this.size,
-    required this.fontWeight
+    required this.fontWeight,
+    this.maxLines
   });
 
   final String title;
   final Color colorText;
   final double size;
   final FontWeight fontWeight;
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
-      maxLines: 1,
+      maxLines:maxLines?? 1,
       overflow:TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
         color: colorText,
