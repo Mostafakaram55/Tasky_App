@@ -18,7 +18,7 @@ class AllTasksView extends StatelessWidget {
     return BlocConsumer<GetTasksCubit, GetTasksStates>(
         listener: (contextC, state) {
           if(state is GetTasksSuccessState){
-            if(state.tasks.isEmpty){
+            if(state.tasks.isEmpty&&GetTasksCubit.get(context).pageNumber==1){
               customSnackBar(
                   context, CustomSnackBar.info(message: TextManager.listEmpty));
             }

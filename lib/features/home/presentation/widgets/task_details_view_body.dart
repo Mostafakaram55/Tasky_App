@@ -35,6 +35,7 @@ class _DetailsTaskViewBodyState extends State<DetailsTaskViewBody> {
     String formattedDate = DateFormat('d MMMM, yyyy').format(parsedDate);
     String imageUrl = widget.taskEntity.image.contains('http') ? widget.taskEntity.image : "${EndPoints.baseUrlEndpoint}${EndPoints.viewImage}${widget.taskEntity.image}";
     return  SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(

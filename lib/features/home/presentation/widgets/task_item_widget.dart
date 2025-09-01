@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/api/end_pionts.dart';
 import '../../../../core/functions/check_priority_task.dart';
 import '../../../../core/utils/app_assets.dart';
-import '../../../../core/widgets/custom_network_image.dart';
 import '../../../../core/widgets/custom_text_widget.dart' show CustomTextWidget;
 import '../../domain/entites/task_entity.dart';
 
@@ -81,6 +80,7 @@ class TaskItemWidget extends StatelessWidget {
                         ...getPriorityButton(taskEntity.status),
                       ],
                     ),
+                    SizedBox(height: 7.h,),
                     CustomTextWidget(
                         title: taskEntity.desc,
                         colorText: Colors.grey,
