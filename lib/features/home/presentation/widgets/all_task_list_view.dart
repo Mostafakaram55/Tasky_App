@@ -31,7 +31,13 @@ class AllTasksListView extends StatelessWidget {
             itemBuilder: (context, index){
               return InkWell(
                 onTap: (){
-                 context.push(AppRouter.detailsView,extra:tasks[index]);
+                  context.push(AppRouter.detailsView,extra:tasks[index]).then((value){
+                    if(value!=null&&value==true){
+                      if(context.mounted){
+                        context.read<GetTasksCubit>().getAllTasks(newGetList: true);
+                      }
+                    }
+                  });
                 },
                 child: TaskItemWidget(
                   taskEntity:tasks[index] ,

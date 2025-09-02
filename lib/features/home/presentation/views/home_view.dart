@@ -97,7 +97,7 @@ class _HomeViewState extends State<HomeView>
                           padding: EdgeInsets.only(bottom: 20.h),
                           child: LoggedOutWidget(
                             operation: () {
-                              context.go;
+                              context.pop();
                             }, icon: IconBroken.Close_Square,
                           ),
                         ),

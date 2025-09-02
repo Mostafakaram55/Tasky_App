@@ -38,7 +38,8 @@ class UpdateTaskViewBody extends StatelessWidget {
     customSnackBar(context, CustomSnackBar.error(message: TextManager.uploadImage));
    }else if(state is EditeTaskSuccess ){
     customSnackBar(context, CustomSnackBar.success(message: TextManager.successMessage));
-     context.go(AppRouter.kHomeView);
+
+     //context.go(AppRouter.kHomeView);
   }else if(state is EditeTaskError){
     customSnackBar(context, CustomSnackBar.error(message: TextManager.errorMessage));
   }
@@ -131,7 +132,13 @@ class UpdateTaskViewBody extends StatelessWidget {
                         idTask:taskEntity.id ,
                         image:taskEntity.image,
                         user: taskEntity.user,
-                 );
+                 ).then((value){
+                    if(context.mounted){
+                      context.pop(true);
+                      context.pop(true);
+                      context.pop(true);
+                    }
+                  });
                  }
                   }
                 },

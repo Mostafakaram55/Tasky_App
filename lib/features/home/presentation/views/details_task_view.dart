@@ -14,6 +14,7 @@ import '../../../../core/widgets/arrow_left_icon.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
 import '../../domain/entites/task_entity.dart';
+import '../cubits/get_task_cubit/get_task_cubit.dart';
 import '../cubits/task_crud_cubit/task_curd_cubit.dart';
 import '../cubits/task_crud_cubit/task_curd_states.dart';
 import '../widgets/edite_and_delete_button.dart';
@@ -52,21 +53,29 @@ class DetailsTaskView extends StatelessWidget {
               leading: Padding(
                 padding:  EdgeInsets.only(left: 20.w),
                 child: ArrowLeftIcon(
-                  operation: AppRouter.goBack,
+                  operation: context.pop
                 ),
               ),
               leadingWidth: 50.w,
               actions: [
                 EditeAndDeleteButton(
                   delete: () {
-                    context.read<TaskOperationsCubit>().removeTask(taskId: task.id).then((value)=>{
+                    context.read<TaskOperationsCubit>().removeTask(taskId: task.id).then((value){
                      if(context.mounted){
-                       context.go(AppRouter.kHomeView),
+                      context.pop(true);
+                      context.pop(true);
                      }
                     });
                   },
                   edite: () {
-                    AppRouter.navigateTo(AppRouter.updateTaskView,extra: task);
+                    context.push(AppRouter.updateTaskView,extra:task).then((value){
+                      if(value!=null&&value==true){
+                        if(context.mounted){
+                          context.read<GetTasksCubit>().getAllTasks(newGetList: true);
+                        }
+                      }
+                    });
+                  //  AppRouter.navigateTo(AppRouter.updateTaskView,extra: task);
                   },
                 ),
               ],
