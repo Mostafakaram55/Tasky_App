@@ -44,7 +44,7 @@ class SignInViewBody extends StatelessWidget {
             context,
             CustomSnackBar.success(message:TextManager.successfulSignIn),
           );
-           GoRouter.of(context).go(AppRouter.kHomeView
+           context.go(AppRouter.kHomeView
           );
         }
       },

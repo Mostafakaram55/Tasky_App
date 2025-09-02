@@ -1,11 +1,12 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
 import 'package:tasky_app/core/utils/app_constants.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
+import 'package:tasky_app/core/utils/service_locator.dart';
 
 import '../../../../config/icons/icons_broken.dart';
 import '../../../../config/local/cache_helper.dart';
@@ -13,12 +14,14 @@ import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
+import '../cubits/get_task_cubit/get_task_cubit.dart';
 import '../widgets/alert_dialog_widget.dart';
 import '../widgets/floating_action_button.dart';
 import '../widgets/home_view_body.dart';
 import '../widgets/logged_out_widget.dart';
 import '../widgets/tab_bar_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -26,12 +29,15 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin{
+class _HomeViewState extends State<HomeView>
+    with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    AppConstants.tabController=TabController(length: 4, vsync: this);
+    context.read<GetTasksCubit>().getAllTasks(newGetList: true);
+    AppConstants.tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
+
   @override
   void dispose() {
     AppConstants.tabController.dispose();
@@ -42,58 +48,62 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: SvgPicture.asset(
-          AppAssets.logo_app,
-          fit: BoxFit.cover,
-          height: 32.h,
-          width: 50.w,
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SvgPicture.asset(
+            AppAssets.logo_app,
+            fit: BoxFit.cover,
+            height: 32.h,
+            width: 50.w,
+          ),
         ),
+        leadingWidth: 100,
         elevation: 0,
         backgroundColor: ColorManager.buttonColor,
         actions: [
           CustomIconButton(
             iconBroken: IconBroken.Profile,
-            operation: (){
-              AppRouter.navigateTo(AppRouter.profileView);
+            operation: () {
+              context.push(AppRouter.profileView);
             },
             colorIcon: Colors.white,
           ),
           CustomIconButton(
             iconBroken: IconBroken.Logout,
-            operation: (){
+            operation: () {
               showAdaptiveDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialogWidget(
-                    title: TextManager.titleDialogLogOut,
-                    items: [
-                      Padding(
-                        padding:  EdgeInsets.only(bottom: 20.h),
-                        child: LoggedOutWidget(
-                          operation: (){
-                            CacheHelper.remove(key: 'access_token').then((_) {
-                              if (context.mounted) {
-                                AppRouter.navigateTo(
-                                  AppRouter.kSignInView,
-                                );
+                  context: context,
+                  builder: (context) {
+                    return AlertDialogWidget(
+                      title: TextManager.titleDialogLogOut,
+                      items: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20.h),
+                          child: LoggedOutWidget(
+                            operation: () {
+                              CacheHelper.remove(key: 'access_token').then((
+                                  _) {
+                                if (context.mounted) {
+                                  context.go(
+                                    AppRouter.kSignInView,
+                                  );
+                                }
                               }
-                            }
-                            );
-                          }, icon: IconBroken.Logout,
+                              );
+                            }, icon: IconBroken.Logout,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding:  EdgeInsets.only(bottom: 20.h),
-                        child: LoggedOutWidget(
-                          operation: (){
-                            AppRouter.goBack();
-                          }, icon: IconBroken.Close_Square,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20.h),
+                          child: LoggedOutWidget(
+                            operation: () {
+                              context.go;
+                            }, icon: IconBroken.Close_Square,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }
+                      ],
+                    );
+                  }
               );
             },
             colorIcon: Colors.white,
@@ -102,16 +112,16 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(100.h),
           child: Container(
-            color:Colors.white,
+            color: Colors.white,
             width: double.infinity,
             child: Padding(
-              padding:  EdgeInsets.all(15.r),
+              padding: EdgeInsets.all(15.r),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextWidget(
                     title: TextManager.myTasks,
-                    colorText:Colors.grey ,
+                    colorText: Colors.grey,
                     fontWeight: FontWeight.bold,
                     size: 16.sp,
                   ),
@@ -123,8 +133,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
           ),
         ),
       ),
-      body:const HomeViewBody(),
-      floatingActionButton:FloatingActionButtonsSection(),
+      body: const HomeViewBody(),
+      floatingActionButton: FloatingActionButtonsSection(),
     );
   }
 }

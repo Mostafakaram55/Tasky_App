@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_app/config/routes/app_routes.dart';
 import 'package:tasky_app/core/functions/show_snak_bar.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
@@ -37,8 +38,7 @@ class UpdateTaskViewBody extends StatelessWidget {
     customSnackBar(context, CustomSnackBar.error(message: TextManager.uploadImage));
    }else if(state is EditeTaskSuccess ){
     customSnackBar(context, CustomSnackBar.success(message: TextManager.successMessage));
-    AppRouter.navigateTo(AppRouter.kHomeView);
-    AppRouter.goBack();
+     context.go(AppRouter.kHomeView);
   }else if(state is EditeTaskError){
     customSnackBar(context, CustomSnackBar.error(message: TextManager.errorMessage));
   }

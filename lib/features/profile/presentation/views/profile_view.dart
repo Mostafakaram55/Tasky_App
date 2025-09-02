@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../config/icons/icons_broken.dart';
 import '../../../../config/routes/app_routes.dart' show AppRouter;
@@ -22,7 +23,7 @@ class ProfileView extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: ArrowLeftIcon(
-            operation: AppRouter.goBack,
+            operation: context.pop,
           ),
         ),
         leadingWidth: 50.w,

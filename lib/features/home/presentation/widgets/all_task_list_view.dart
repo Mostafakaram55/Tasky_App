@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/widgets/empty_list.dart';
 import 'package:tasky_app/features/home/presentation/widgets/task_item_widget.dart';
@@ -12,7 +13,7 @@ class AllTasksListView extends StatelessWidget {
   const AllTasksListView({super.key});
   @override
   Widget build(BuildContext context) {
-    final tasks=GetTasksCubit.get(context).tasks;
+    final tasks=context.read<GetTasksCubit>().tasks;
     if(tasks.isNotEmpty){
       return NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollINFO){
@@ -21,20 +22,25 @@ class AllTasksListView extends StatelessWidget {
           }
           return true;
         },
-        child: ListView.separated(
-          physics: const BouncingScrollPhysics(),
-          itemBuilder: (context, index){
-            return GestureDetector(
-              onTap: (){
-                AppRouter.navigateTo(AppRouter.detailsView,extra:tasks[index]);
-              },
-              child: TaskItemWidget(
-                taskEntity:tasks[index] ,
-              ),
-            );
+        child: RefreshIndicator(
+          onRefresh: ()async{
+            context.read<GetTasksCubit>().getAllTasks(newGetList: true);
           },
-          itemCount: tasks.length,
-          separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
+          child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index){
+              return InkWell(
+                onTap: (){
+                 context.push(AppRouter.detailsView,extra:tasks[index]);
+                },
+                child: TaskItemWidget(
+                  taskEntity:tasks[index] ,
+                ),
+              );
+            },
+            itemCount: tasks.length,
+            separatorBuilder: (context,index)=>SizedBox(height: 20.h,),
+          ),
         ),
       );
     }else{
@@ -42,6 +48,5 @@ class AllTasksListView extends StatelessWidget {
         title: TextManager.listEmpty,
       );
     }
-
   }
 }

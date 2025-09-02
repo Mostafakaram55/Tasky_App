@@ -45,7 +45,13 @@ class FloatingActionButtonsSection extends StatelessWidget {
             child: FloatingActionButton(
               heroTag: '2',
               onPressed: () {
-                context.push(AppRouter.kAddTaskView,);
+                context.push(AppRouter.kAddTaskView,).then((value){
+                  if(value!=null&&value==true){
+                    if(context.mounted){
+                   context.read<GetTasksCubit>().getAllTasks(newGetList: true);
+                  }
+                  }
+                });
               },
               backgroundColor: ColorManager.buttonColor,
               child: Icon(

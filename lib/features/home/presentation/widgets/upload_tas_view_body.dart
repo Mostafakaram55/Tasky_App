@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tasky_app/config/routes/app_routes.dart';
+import 'package:tasky_app/features/home/presentation/views/home_view.dart';
 import 'package:tasky_app/features/home/presentation/widgets/upload_image_task.dart';
 import 'package:tasky_app/features/home/presentation/widgets/upload_task_text_fileds.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -22,7 +25,7 @@ class UploadTaskViewBody extends StatelessWidget {
           customSnackBar(context,CustomSnackBar.error(message: state.errorMassage));
         }else if(state is SuccessUploadTaskState){
           customSnackBar(context,CustomSnackBar.success(message: state.successMessage));
-          Navigator.pop(context);
+          context.pop(true);
         }else if(state is ErrorUploadTaskState){
           customSnackBar(context,CustomSnackBar.error(message: state.errorMessage));
         }

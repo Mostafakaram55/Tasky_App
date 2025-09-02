@@ -60,8 +60,9 @@ class DetailsTaskView extends StatelessWidget {
                 EditeAndDeleteButton(
                   delete: () {
                     context.read<TaskOperationsCubit>().removeTask(taskId: task.id).then((value)=>{
-                      AppRouter.goBack(),
-                      AppRouter.goBack(),
+                     if(context.mounted){
+                       context.go(AppRouter.kHomeView),
+                     }
                     });
                   },
                   edite: () {

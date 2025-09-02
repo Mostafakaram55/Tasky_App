@@ -18,7 +18,7 @@ class HomeViewBody extends StatefulWidget {
 class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   void initState() {
-    BlocProvider.of<GetTasksCubit>(context).getAllTasks();
+    //BlocProvider.of<GetTasksCubit>(context).getAllTasks(newGetList: true);
     super.initState();
   }
   @override
