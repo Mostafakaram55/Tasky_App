@@ -58,7 +58,12 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
               ],
             ),
           );
-        }else {
+        }
+        else if (state is ErrorProfile){
+          return Center(child: Text(state.message));
+        }
+
+        else {
           return ListView.separated(
             separatorBuilder:  (context,index)=>SizedBox(height: 10.h,),
             itemBuilder: (context,index)=>ItemLoadingIndicator(),

@@ -1,6 +1,7 @@
 
 import '../../../../core/api/api_services.dart';
 import '../../../../core/api/end_pionts.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../domain/entities/authentication_entity.dart';
 import '../models/authentication_model.dart';
 
@@ -11,12 +12,7 @@ abstract  class AuthenticationDataSource{
     String?password
   });
   Future<AuthenticationEntity> signUpUser({
-    String? phone,
-    String? password,
-    String? displayName,
-    String? experienceYears,
-    String? address,
-    String? level,
+    SignUpParam? signIpParam,
   });
 }
 
@@ -43,22 +39,17 @@ class AuthenticationDataSourceImplementation implements AuthenticationDataSource
   }
   @override
   Future<AuthenticationEntity> signUpUser({
-    String? phone,
-    String? password,
-    String? displayName,
-    String? experienceYears,
-    String? address,
-    String? level,
+     SignUpParam? signIpParam,
   }) async{
     final response= await apiService.post(
         EndPoints.singUpEndpoint,
         data: {
-          if (phone != null) 'phone': phone,
-          if (password != null) 'password': password,
-          if(displayName!=null) 'displayName':displayName,
-          if (experienceYears != null) 'experienceYears': experienceYears,
-          if (address != null) 'address': address,
-          if(level!=null) 'level':level,
+          'phone': signIpParam!.phone,
+          'password': signIpParam.password,
+          'displayName':signIpParam.displayName,
+          'experienceYears':signIpParam. experienceYears,
+          'address':signIpParam. address,
+          'level':signIpParam.level,
         }
     );
     AuthenticationEntity user;

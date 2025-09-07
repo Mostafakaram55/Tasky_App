@@ -10,11 +10,7 @@ class UploadTaskUseCase extends UseCase<String,UploadTaskParam>{
   @override
   Future<Either<Failure, String>> call([UploadTaskParam? uploadTaskParam])async {
     return await homeRepository.uploadTask(
-        image: uploadTaskParam!.image,
-        title: uploadTaskParam.title,
-        desc: uploadTaskParam.desc,
-        priority: uploadTaskParam.priority,
-        dueDate: uploadTaskParam.dueDate
+       uploadTaskParam: uploadTaskParam!,
     );
   }
 

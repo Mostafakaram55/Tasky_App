@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextWidget extends StatelessWidget {
   const CustomTextWidget({
@@ -23,9 +21,9 @@ class CustomTextWidget extends StatelessWidget {
       title,
       maxLines:maxLines?? 1,
       overflow:TextOverflow.ellipsis,
-      style: GoogleFonts.montserrat(
+      style: TextStyle(
         color: colorText,
-        fontSize: size.r,
+        fontSize: size-2,
         fontWeight: fontWeight,
       ),
     );

@@ -17,8 +17,9 @@ import '../../domain/entites/task_entity.dart';
 import '../widgets/update_task_view.dart';
 
 class UpdateTaskView extends StatefulWidget {
-  const UpdateTaskView({super.key, required this.taskEntity});
+  const UpdateTaskView({super.key, required this.taskEntity,});
 final TaskEntity taskEntity;
+
 
   @override
   State<UpdateTaskView> createState() => _UpdateTaskViewState();
@@ -29,9 +30,24 @@ class _UpdateTaskViewState extends State<UpdateTaskView> {
   void initState() {
     TaskOperationsCubit.get(context).titleTask.text=widget.taskEntity.title;
     TaskOperationsCubit.get(context).description.text=widget.taskEntity.desc;
-    TaskOperationsCubit.get(context).selectedStatus=widget.taskEntity.status;
-    TaskOperationsCubit.get(context).selectedPriority=widget.taskEntity.priority;
+    TaskOperationsCubit.get(context).selectedStatus=getStatus(widget.taskEntity.status!);
+    TaskOperationsCubit.get(context).selectedPriority=getPriority(widget.taskEntity.priority!);
     super.initState();
+  }
+
+  String getStatus (value){
+    if( ['inprogress','waiting','finished'].contains(value)){
+      return value;
+    }else{
+      return'inprogress';
+    }
+  }
+  String getPriority (value){
+    if( ['low', 'medium', 'high'].contains(value)){
+      return value;
+    }else{
+      return'low';
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -40,7 +56,9 @@ class _UpdateTaskViewState extends State<UpdateTaskView> {
         centerTitle: false,
         backgroundColor:ColorManager.buttonColor,
         title:CustomTextWidget(
-            title: 'Edite Task', colorText: Colors.white, size: 16.sp, fontWeight: FontWeight.w700),
+            title: 'Edite Task',
+            colorText: Colors.white, size: 18.sp,
+            fontWeight: FontWeight.w700),
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: ArrowLeftIcon(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:flutter_svg/svg.dart';
+import '../utils/app_assets.dart';
 import '../utils/app_colors.dart';
 import '../widgets/custom_state-buttton_widget.dart';
 import '../widgets/custom_text_widget.dart';
@@ -12,15 +13,17 @@ List<Widget> getStatusWidget(String priority) {
       return [
         Row(
           children: [
-            Icon(
-              Icons.flag_outlined,
-              size: 17.sp,
+            SvgPicture.asset(
+              AppAssets.flag,
+              height: 16.h,
+              width: 16.w,
               color: ColorManager.inprogressText,
             ),
+            SizedBox(width: 5,),
             CustomTextWidget(
                 title: capitalize(priority),
                 colorText: ColorManager.inprogressText,
-                size: 16.sp,
+                size: 12.sp,
                 fontWeight: FontWeight.w700
             ),
           ],
@@ -30,15 +33,17 @@ List<Widget> getStatusWidget(String priority) {
       return [
         Row(
           children: [
-            Icon(
-              Icons.flag_outlined,
-              size: 17.sp,
+            SvgPicture.asset(
+              AppAssets.flag,
+              height: 16.h,
+              width: 16.w,
               color: ColorManager.finishedText,
             ),
+            SizedBox(width: 5,),
             CustomTextWidget(
                 title: capitalize(priority),
                 colorText: ColorManager.finishedText,
-                size: 16.sp,
+                size: 12.sp,
                 fontWeight: FontWeight.w700
             ),
           ],
@@ -48,15 +53,17 @@ List<Widget> getStatusWidget(String priority) {
       return [
         Row(
           children: [
-            Icon(
-              Icons.flag_outlined,
-              size: 17.sp,
+            SvgPicture.asset(
+              AppAssets.flag,
+              height: 16.h,
+              width: 16.w,
               color: ColorManager.waitingText,
             ),
+            SizedBox(width: 5,),
             CustomTextWidget(
                 title: capitalize(priority),
                 colorText: ColorManager.waitingText,
-                size: 16.sp,
+                size: 12.sp,
                 fontWeight: FontWeight.w700
             ),
           ],

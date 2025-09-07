@@ -40,7 +40,7 @@ class _UploadTaskViewState extends State<UploadTaskView> {
                 backgroundColor: ColorManager.buttonColor,
                 title: CustomTextWidget(
                     title: 'Add New Task',
-                    colorText: Colors.white, size: 16.sp, fontWeight: FontWeight.bold),
+                    colorText: Colors.white, size: 18.sp, fontWeight: FontWeight.w700),
                 leading: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: ArrowLeftIcon(

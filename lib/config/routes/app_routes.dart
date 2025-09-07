@@ -86,7 +86,7 @@ abstract class AppRouter {
             final taskModel = state.extra as TaskEntity;
             return BlocProvider(
               create: (context) => getIt.get<TaskOperationsCubit>(),
-              child: UpdateTaskView( taskEntity: taskModel ,),
+              child: UpdateTaskView( taskEntity: taskModel ),
             );
           },
         ),

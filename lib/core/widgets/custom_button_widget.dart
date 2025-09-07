@@ -2,7 +2,9 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
+import 'package:tasky_app/core/widgets/custom_text_widget.dart';
 
 import '../utils/app_colors.dart';
 
@@ -30,17 +32,15 @@ class CustomButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              titleButton,
-              style: TextStyle(
-                  color:Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 19.sp
+               CustomTextWidget(
+                  size:19.sp ,
+                title: titleButton,
+                   colorText:ColorManager.white
+                 , fontWeight: FontWeight.w700,
               ),
-            ),
             SizedBox(width: 5.w,),
-            Image.asset(
-              AppAssets.arrowLeft,
+            SvgPicture.asset(
+              AppAssets.arrowRight,
               height: 24.h,
               width: 24.w,
             ),

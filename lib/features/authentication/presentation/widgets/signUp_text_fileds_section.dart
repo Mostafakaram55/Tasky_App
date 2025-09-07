@@ -35,7 +35,7 @@ class SignUpSectionTextFiled extends StatelessWidget {
           obscureText: false,
           validator: (value) {
             if(value!.isEmpty){
-              return 'Please enter Name ';
+              return TextManager.validationName;
             }else{
               return null;
             }
@@ -57,7 +57,7 @@ class SignUpSectionTextFiled extends StatelessWidget {
           obscureText: false,
           validator: (value) {
             if(value!.isEmpty){
-              return 'Please enter experience Years ';
+              return TextManager.validationExperienceYears;
             }else{
               return null;
             }
@@ -78,8 +78,8 @@ class SignUpSectionTextFiled extends StatelessWidget {
               child:CustomTextWidget(
                 title: e,
                 colorText: Colors.black,
-                fontWeight: FontWeight.w300,
-                size: 18.sp,
+                fontWeight: FontWeight.w400,
+                size: 16.sp,
               ),
             ),
           ).toList(),
@@ -94,7 +94,7 @@ class SignUpSectionTextFiled extends StatelessWidget {
           obscureText: false,
           validator: (value) {
             if(value!.isEmpty){
-              return 'Please enter your Address';
+              return TextManager.validationAddress;
             }else{
               return null;
             }
@@ -117,17 +117,17 @@ class SignUpSectionTextFiled extends StatelessWidget {
           validator: (value) {
             if(value!.isNotEmpty){
               if(value.length<8){
-                return 'password is short';
+                return TextManager.passwordIsShort;
               }
             }else if (value.isEmpty){
-              return 'Please enter Password ';
+              return TextManager.errorValidatorPassword;
             }
             return null;
           },
           hintText: TextManager.passwordText,
 
         ),
-        SizedBox(height: 16.h),
+        SizedBox(height: 20.h),
       ],
     );
   },

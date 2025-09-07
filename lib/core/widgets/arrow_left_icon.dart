@@ -14,8 +14,7 @@ class ArrowLeftIcon extends StatelessWidget {
       child: SvgPicture.asset(
         width: 25.w,
           height: 28.h,
-          AppAssets.arrow_left_n,
-        color: Colors.white,
+          AppAssets.arrowLeft,
       ),
     );
   }

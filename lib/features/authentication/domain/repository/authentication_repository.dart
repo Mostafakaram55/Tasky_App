@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../entities/authentication_entity.dart';
 
 abstract class AuthenticationRepository{
@@ -9,11 +10,7 @@ abstract class AuthenticationRepository{
     required String password,
   });
   Future<Either<Failure,AuthenticationEntity>>signUpOperation({
-    required   String phone,
-    required  String password,
-    required   String displayName,
-    required  String experienceYears,
-    required  String address,
-    required  String level,
+    required   SignUpParam signUpParam,
+
   });
 }

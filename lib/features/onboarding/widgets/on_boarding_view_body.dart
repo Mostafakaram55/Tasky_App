@@ -11,18 +11,21 @@ import '../../../core/widgets/custom_text_widget.dart';
 
 class OnBoardingViewBody extends StatelessWidget {
   const OnBoardingViewBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CustomImageLogo(),
-          Column(
-            mainAxisSize: MainAxisSize.min,
+       CustomImageLogo(),
+        Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 15.h,
+                height: 20.h,
               ),
               CustomTextWidget(
                 colorText:Colors.black ,
@@ -32,21 +35,19 @@ class OnBoardingViewBody extends StatelessWidget {
                 maxLines: 2,
               ),
               SizedBox(
-                height: 10.h,
+                height: 20.h,
               ),
               CustomTextWidget(
-                colorText:Colors.grey ,
+                colorText:Color(0xFf6E6A7C) ,
                 fontWeight:FontWeight.w400 ,
-                size:15.sp ,
+                size:14.sp ,
                 title:TextManager.onBoardinText2,
                 maxLines: 3,
               ),
               SizedBox(
-                height: 20.h,
+                height: 33.h,
               ),
-              Padding(
-                padding:EdgeInsets.only(bottom: 10.h,right: 20.w,left: 20.w),
-                child: CustomButton(
+                   CustomButton(
                   onPressed: (){
                     CacheHelper.saveData(key:'isOnBoardingVisited',value: true);
                     context.go(AppRouter.kSignInView);
@@ -54,9 +55,9 @@ class OnBoardingViewBody extends StatelessWidget {
                   isIcon: true,
                   titleButton: TextManager.titleButtonStart,
                 ),
-              ),
             ],
           ),
+        ),
         ],
       ),
     );

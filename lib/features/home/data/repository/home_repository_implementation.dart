@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:tasky_app/core/utils/app_constants.dart';
 import '../../../../core/errors/failures.dart';
 import '../../domain/entites/task_entity.dart';
 import '../../domain/repository/home_repository.dart';
@@ -11,23 +12,12 @@ class HomeRepositoryImplementation implements HomeRepository{
   HomeRepositoryImplementation({required this.homeDataSource});
   @override
   Future<Either<Failure, TaskEntity>> editeTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String status,
-    required String user,
-    required String idTask,
+    required EditeTaskParam editeTaskParam,
   })async {
     try{
       var task=await homeDataSource.editeTask(
-        image: image,
-        title: title,
-        desc: desc,
-        priority: priority,
-        status: status,
-        user: user,
-        idTask: idTask,
+          editeTaskParam: editeTaskParam
+
       );
       return Right(task);
     }catch(e){
@@ -55,19 +45,11 @@ class HomeRepositoryImplementation implements HomeRepository{
 
   @override
   Future<Either<Failure,String>> uploadTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String dueDate
+    required UploadTaskParam uploadTaskParam,
   })async {
     try{
       String addTaskMessage=await homeDataSource.uploadTask(
-          image: image,
-          title: title,
-          desc: desc,
-          priority: priority,
-          dueDate: dueDate
+          uploadTaskParam: uploadTaskParam
       );
       return Right(addTaskMessage);
     }catch (e){

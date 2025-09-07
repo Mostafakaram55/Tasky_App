@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
+import 'package:tasky_app/features/home/presentation/widgets/uplad_image_button.dart';
 
 import '../../../../config/icons/icons_broken.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -29,37 +30,32 @@ class UploadImageTask extends StatelessWidget {
               context: contextForBloc,
               builder: (context) {
                 return AlertDialogWidget(
-                  title: TextManager.chooseImage,
+                  iconType:IconBroken.Image_2 ,
+                  title: TextManager.uploadImage,
                   items: [
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
-                      child: CircleAvatar(
-                        backgroundColor: ColorManager.buttonColor,
-                        child: CustomIconButton(
-                            iconBroken: IconBroken.Camera,
-                            operation: (){
-                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
-                              context.pop();
-                            },
-                            colorIcon: ColorManager.white
-                        ),
+                      child: UploadImageButton(
+                          operation: (){
+                            contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromCamera();
+                            context.pop();
+                          },
+                        titleButton:TextManager.tackPhoto,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20),
-                      child: CircleAvatar(
-                        backgroundColor: ColorManager.buttonColor,
-                        child: CustomIconButton(
-                            iconBroken:IconBroken.Image,
-                            operation: (){
-                              contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
-                              context.pop();
-                            },
-                            colorIcon: ColorManager.white
-                        ),
+                      child: UploadImageButton(
+                          titleButton: TextManager.chooseFile,
+                          operation: (){
+                            contextForBloc.read<TaskOperationsCubit>().uploadTaskImageFromGallery();
+                            context.pop();
+                          },
+
                       ),
                     ),
                   ],
+                  subTitle: TextManager.pickImageTitle,
                 );
               },
             );

@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
 import 'package:tasky_app/core/utils/app_constants.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
-import 'package:tasky_app/core/utils/service_locator.dart';
-
 import '../../../../config/icons/icons_broken.dart';
 import '../../../../config/local/cache_helper.dart';
 import '../../../../config/routes/app_routes.dart';
@@ -47,7 +45,7 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SvgPicture.asset(
@@ -75,8 +73,20 @@ class _HomeViewState extends State<HomeView>
                   context: context,
                   builder: (context) {
                     return AlertDialogWidget(
-                      title: TextManager.titleDialogLogOut,
+                      subTitle: 'Are you sure you want to log out ?',
+                      iconType:IconBroken.Logout ,
+                      title: 'Log out',
                       items: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 20.h),
+                          child: LoggedOutWidget(
+                            okLogOut: false,
+                            titleButton: 'No',
+                            operation: () {
+                              context.pop();
+                            },
+                          ),
+                        ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.h),
                           child: LoggedOutWidget(
@@ -90,15 +100,9 @@ class _HomeViewState extends State<HomeView>
                                 }
                               }
                               );
-                            }, icon: IconBroken.Logout,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 20.h),
-                          child: LoggedOutWidget(
-                            operation: () {
-                              context.pop();
-                            }, icon: IconBroken.Close_Square,
+                            },
+                            okLogOut: true,
+                            titleButton: 'Ok',
                           ),
                         ),
                       ],
@@ -122,7 +126,7 @@ class _HomeViewState extends State<HomeView>
                   CustomTextWidget(
                     title: TextManager.myTasks,
                     colorText: Colors.grey,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                     size: 16.sp,
                   ),
                   SizedBox(height: 8.h,),

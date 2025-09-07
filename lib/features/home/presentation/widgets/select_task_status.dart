@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
-
 import '../../../../core/functions/capitalize_text.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/custom_drop_down.dart';
@@ -33,12 +32,12 @@ class SelectTaskStatus extends StatelessWidget {
                title: capitalize(value),
               colorText: ColorManager.buttonColor,
                fontWeight: FontWeight.w700,
-              size: 17.sp
+              size: 16.sp
          ),
     ),
     ).toList(),
     onChange: (value) {
-     context.read<TaskOperationsCubit>().selectedStatus = value;
+     context.read<TaskOperationsCubit>().selectedStatus = value??'';
     }
     );
   }

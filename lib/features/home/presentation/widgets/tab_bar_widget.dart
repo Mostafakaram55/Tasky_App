@@ -25,6 +25,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
         indicatorColor: Colors.white,
         isScrollable: true,
         labelPadding: EdgeInsets.symmetric(horizontal: 8.w),
+        physics: NeverScrollableScrollPhysics(),
         onTap: (index){
           setState(() {
             AppConstants.tabController.index = index;
@@ -35,28 +36,28 @@ class _TabBarWidgetState extends State<TabBarWidget> {
               child: CustomTabContainer(
                 title: TextManager.allTaskText,
                 containerColor:AppConstants.tabController.index==0?ColorManager.buttonColor:ColorManager.unselectedButton,
-                textColor:AppConstants.tabController.index==0? Colors.white:Colors.black,
+                textColor:AppConstants.tabController.index==0? ColorManager.white:Colors.black,
               )
           ),
           Tab(
               child: CustomTabContainer(
                 title: TextManager.inprogressTaskText,
                 containerColor: AppConstants.tabController.index==1?ColorManager.buttonColor:ColorManager.unselectedButton,
-                textColor: AppConstants.tabController.index==1? Colors.white:Colors.black,
+                textColor: AppConstants.tabController.index==1? ColorManager.white:Colors.black,
               )
           ),
           Tab(
               child: CustomTabContainer(
                 title: TextManager.waitingTaskText,
                 containerColor: AppConstants.tabController.index==2?ColorManager.buttonColor:ColorManager.unselectedButton,
-                textColor: AppConstants.tabController.index==2? Colors.white:Colors.black,
+                textColor: AppConstants.tabController.index==2? ColorManager.white:Colors.black,
               )
           ),
           Tab(
               child: CustomTabContainer(
                 title: TextManager.finishedTaskText,
                 containerColor:AppConstants.tabController.index==3?ColorManager.buttonColor:ColorManager.unselectedButton,
-                textColor: AppConstants.tabController.index==3? Colors.white:Colors.black,
+                textColor: AppConstants.tabController.index==3? ColorManager.white:Colors.black,
               )
           ),
         ]

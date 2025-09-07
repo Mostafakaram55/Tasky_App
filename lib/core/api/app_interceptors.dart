@@ -22,9 +22,9 @@ class ApiInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 403) {
-      AppRouter.navigateTo(AppRouter.kSignInView);// روح علي login خلاص دي مشكله من الخادم بقي خلاص انتهاء الصلاحية
+      AppRouter.navigateTo(AppRouter.kSignInView);
     }
-    if (err.response?.statusCode == 401 && err.response?.realUri !=// انا هنا بسأل هل انا بعمل  login اصلا ,
+    if (err.response?.statusCode == 401 && err.response?.realUri !=
         Uri.parse(EndPoints.baseUrlEndpoint + EndPoints.singInEndpoint)) {
       String?accessToken = CacheHelper.getData(key: 'access_token');
       String?refreshToken = CacheHelper.getData(key: 'refresh_token');
@@ -42,8 +42,8 @@ class ApiInterceptor extends Interceptor {
         }
         );
         accessToken=await CacheHelper.getData(key: 'access_token');
-        err.requestOptions.headers['Authorization'] = 'Bearer $accessToken';// اهبعتلك في headers التكون الجديد بقي
-        return handler.resolve(await dio.fetch(err.requestOptions));//روح اعمل نفس الريكوست بس بالtoken الجديد
+        err.requestOptions.headers['Authorization'] = 'Bearer $accessToken';
+        return handler.resolve(await dio.fetch(err.requestOptions));
       }
       super.onError(err, handler);
     }

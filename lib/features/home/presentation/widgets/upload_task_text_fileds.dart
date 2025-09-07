@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasky_app/core/utils/app_assets.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/widgets/select_task_priority.dart';
@@ -88,8 +89,14 @@ class SectionTaskFileds extends StatelessWidget {
             onTap: ()async{
               await context.read<TaskOperationsCubit>().uploadTaskDate(context);
             },
-            child: Image.asset(
-              AppAssets.calendar,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                AppAssets.calendar,
+                height:22.h ,
+                width:22.w ,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           textEditingController:context.read<TaskOperationsCubit>().deuData,
@@ -98,7 +105,6 @@ class SectionTaskFileds extends StatelessWidget {
           validator: (value){
             if(value!.isEmpty){
               return 'please enter task date';
-
             }
             return null;
           },

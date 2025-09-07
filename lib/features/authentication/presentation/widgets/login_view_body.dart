@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:toastification/toastification.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../config/local/cache_helper.dart';
@@ -25,9 +26,11 @@ class SignInViewBody extends StatelessWidget {
     return BlocConsumer<SignInCubit, SignInStates>(
       listener: (context, state) {
         if(state is ErrorSignInState){
-          customSnackBar(
-            context,
-            CustomSnackBar.error(message: state.message),
+          showToastificationWidget(
+              message:state.message,
+              context: context,
+              duration: 3,
+              notificationType:ToastificationType.success
           );
         } else if (state is SuccessSignInState) {
           CacheHelper.saveData(
@@ -40,9 +43,11 @@ class SignInViewBody extends StatelessWidget {
           );
           AppConstants.accessToken = state.userData.accessToken;
           AppConstants.refreshToken = state.userData.refreshToken;
-          customSnackBar(
-            context,
-            CustomSnackBar.success(message:TextManager.successfulSignIn),
+          showToastificationWidget(
+              message:TextManager.successfulSignIn,
+              context: context,
+              duration: 3,
+              notificationType:ToastificationType.success
           );
            context.go(AppRouter.kHomeView
           );
@@ -75,18 +80,35 @@ class SignInViewBody extends StatelessWidget {
                         LoginTextFiledSection(),
                         CustomButton(
                           onPressed: () {
-                            if (SignInCubit.get(context,).formLoginKey.currentState!.validate()) {
-                              if (context
-                                  .read<SignInCubit>()
-                                  .phoneController
-                                  .text
-                                  .isNotEmpty) {
-                                SignInCubit.get(context).signIn();
-                              } else {
-                                customSnackBar(
-                                  context,
-                                  CustomSnackBar.error(message:TextManager.phoneErrorMessage),
+                            final cubit = SignInCubit.get(context);
+                            final phone = cubit.phoneController.text.trim();
+                            final password = cubit.passwordController.text.trim();
+
+                            if (cubit.formLoginKey.currentState!.validate()) {
+                              if (phone.isEmpty && password.isEmpty) {
+                                showToastificationWidget(
+                                    message:TextManager.errorValidatorPhoneNumberAnPassword ,
+                                    context: context,
+
+                                    notificationType:ToastificationType.error
                                 );
+                              } else if (phone.isEmpty) {
+                                showToastificationWidget(
+                                    message:TextManager.phoneErrorMessage,
+                                    context: context,
+
+                                    notificationType:ToastificationType.error
+                                );
+
+                              } else if (password.isEmpty) {
+                                showToastificationWidget(
+                                    message:TextManager.errorValidatorPassword,
+                                    context: context,
+
+                                    notificationType:ToastificationType.error
+                                );
+                              } else {
+                                cubit.signIn();
                               }
                             }
                           },
@@ -96,7 +118,7 @@ class SignInViewBody extends StatelessWidget {
                           operation: () {
                             context.push(AppRouter.kSignUpView);
                           },
-                          operationName: "Didn’t have any account?",
+                          operationName: "Did’t have any account?",
                           titleButton: TextManager.signUpHere,
                         ),
                         SizedBox(height: 20.h),

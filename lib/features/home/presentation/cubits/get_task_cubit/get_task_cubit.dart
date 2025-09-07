@@ -56,7 +56,7 @@ class GetTasksCubit extends Cubit<GetTasksStates>{
     waiting=[];
     finished=[];
     for(TaskEntity task  in tasks){
-      switch(task.status.toLowerCase().replaceAll('', '')){
+      switch(task.status?.toLowerCase().replaceAll('', '')){
         case 'inprogress':
           inProgress.add(task);
         case 'waiting':

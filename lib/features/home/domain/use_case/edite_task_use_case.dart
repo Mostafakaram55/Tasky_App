@@ -12,13 +12,7 @@ class EditeTaskUseCase extends UseCase<TaskEntity,EditeTaskParam>{
   @override
   Future<Either<Failure, TaskEntity>> call([EditeTaskParam? editeTask])async {
     return await homeRepository.editeTask(
-        image: editeTask!.image,
-        title: editeTask.title,
-        desc: editeTask.desc,
-        priority:editeTask. priority,
-        status: editeTask.status,
-        user:editeTask. user,
-        idTask: editeTask.idTask
+       editeTaskParam: editeTask!
     );
   }
 }

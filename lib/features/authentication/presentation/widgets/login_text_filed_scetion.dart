@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:tasky_app/core/utils/app_strings.dart';
 import '../../../../core/widgets/custom_text_filed_phone.dart';
 import '../../../../core/widgets/custom_text_form_filed.dart';
 import '../cubits/login_cubit/login_cubit.dart';
@@ -35,16 +36,11 @@ class LoginTextFiledSection extends StatelessWidget {
                 ? Icon(Icons.visibility_off, size: 20.sp)
                 : Icon(Icons.visibility, size: 20.sp),
           ),
-          hintText: 'Password',
+          hintText: TextManager.passwordText,
           obscureText: context.read<SignInCubit>().isVisiblePassword,
           textEditingController: SignInCubit.get(context).passwordController,
           textInputType: TextInputType.visiblePassword,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'please enter password';
-            }
-            return null;
-          },
+          validator: (value) {},
         ),
         SizedBox(height: 15.h),
       ],

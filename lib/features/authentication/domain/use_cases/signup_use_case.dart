@@ -12,12 +12,7 @@ class SignUpUseCase extends UseCase<AuthenticationEntity,SignUpParam>{
 
   Future<Either<Failure,AuthenticationEntity>>call([SignUpParam? signUpParams])async {
     return await authenticationRepository.signUpOperation(
-      phone: signUpParams!.phone,
-      password: signUpParams.password,
-      displayName: signUpParams.displayName,
-      experienceYears: signUpParams.experienceYears,
-      address: signUpParams.address,
-      level: signUpParams.level,
+      signUpParam: signUpParams!,
     );
   }
 }

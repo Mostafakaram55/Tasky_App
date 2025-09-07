@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/functions/capitalize_text.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart' show ColorManager;
@@ -37,10 +36,12 @@ class SelectTaskPriority extends StatelessWidget {
               SvgPicture.asset(
                 AppAssets.flag,
                 color: ColorManager.buttonColor,
+                height:22.h ,
+                width:22.w ,
               ),
-              SizedBox(width:7.h,),
+              SizedBox(width:5.h,),
               CustomTextWidget(
-                  title: capitalize('$value Priority'),
+                  title: capitalize('$value Priority')??'',
                   colorText: ColorManager.buttonColor,
                   fontWeight: FontWeight.w700,
                   size: 16.sp
@@ -50,7 +51,7 @@ class SelectTaskPriority extends StatelessWidget {
         ),
       ).toList(),
       onChange: (value) {
-        context.read<TaskOperationsCubit>().selectedPriority= value;
+        context.read<TaskOperationsCubit>().selectedPriority= value??'';
       },
     );
   }

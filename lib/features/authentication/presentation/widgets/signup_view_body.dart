@@ -7,6 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tasky_app/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:tasky_app/features/authentication/presentation/widgets/have_email_widget.dart';
 import 'package:tasky_app/features/authentication/presentation/widgets/signUp_text_fileds_section.dart';
+import 'package:toastification/toastification.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 import '../../../../config/local/cache_helper.dart';
@@ -42,15 +43,20 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           AppConstants.accessToken=state.userData.accessToken;
           AppConstants.refreshToken=state.userData.refreshToken;
           context.go(AppRouter.kHomeView);
-          customSnackBar(
-            context,
-            CustomSnackBar.success(message:TextManager.signUpSuccessful),
+          showToastificationWidget(
+              message:TextManager.signUpSuccessful,
+              context: context,
+
+              notificationType:ToastificationType.success
           );
         }else if(state is ErrorSignUpState){
-          customSnackBar(
-            context,
-            CustomSnackBar.error(message: state.message),
+          showToastificationWidget(
+              message:state.message,
+              context: context,
+
+              notificationType:ToastificationType.error
           );
+
         }
       },
       builder: (context,state){
@@ -89,7 +95,12 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                                     if(context.read<SignUPCubit>().phoneController.text.isNotEmpty){
                                       context.read<SignUPCubit>().signUp();
                                     }else{
-                                      customSnackBar(context,CustomSnackBar.error(message: 'please enter phone'));
+                                      showToastificationWidget(
+                                          message:'please enter phone',
+                                          context: context,
+
+                                          notificationType:ToastificationType.error
+                                      );
                                     }
                                   }
                                 },

@@ -45,6 +45,7 @@ class CustomNetworkImage extends StatelessWidget {
               color: ColorManager.buttonColor,
               size: 24,
             ),
+
       ),
     );
   }

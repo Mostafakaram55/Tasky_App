@@ -7,7 +7,7 @@ class CustomImageLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  AspectRatio(
-      aspectRatio: 0.978,
+      aspectRatio: 0.958,
       child: Image(
         fit: BoxFit.cover,
         image: AssetImage(AppAssets.authImage),

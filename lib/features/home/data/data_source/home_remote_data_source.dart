@@ -2,26 +2,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import '../../../../core/api/api_services.dart';
 import '../../../../core/api/end_pionts.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../domain/entites/task_entity.dart';
 import '../models/task_model.dart';
 
 
 abstract class  HomeDataSource{
   Future<String>uploadTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String dueDate
+    required UploadTaskParam uploadTaskParam
   });
   Future<TaskEntity>editeTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String status,
-    required String user,
-    required String idTask,
+    required EditeTaskParam editeTaskParam,
+
   });
   Future<String>removeTask({
     required String taskId
@@ -40,23 +32,17 @@ class HomeDataSourceImplementation implements HomeDataSource{
   HomeDataSourceImplementation({required this.apiService});
   @override
   Future<TaskEntity> editeTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String status,
-    required String user,
-    required String idTask,
+    required EditeTaskParam editeTaskParam,
   })async {
     var response=await apiService.put(
-        EndPoints.editeEndpoint+idTask,
+        EndPoints.editeEndpoint+editeTaskParam.idTask,
         data: {
-          'image':image,
-          'title':title,
-          'desc':desc,
-          'priority':priority,
-          'status':status,
-          'user':user,
+          'image':editeTaskParam.image,
+          'title':editeTaskParam.title,
+          'desc':editeTaskParam.desc,
+          'priority':editeTaskParam.priority,
+          'status':editeTaskParam.status,
+          'user':editeTaskParam.user,
         }
     );
     TaskEntity taskEntity;
@@ -76,21 +62,17 @@ class HomeDataSourceImplementation implements HomeDataSource{
 
   @override
   Future<String> uploadTask({
-    required String image,
-    required String title,
-    required String desc,
-    required String priority,
-    required String dueDate
+  required UploadTaskParam uploadTaskParam,
   }) async{
     await apiService.post(
         EndPoints.createEndpoint,
         formData: false,
         data:{
-          'image':image,
-          'title':title,
-          'desc':desc,
-          'priority':priority,
-          'dueDate':dueDate,
+          'image':uploadTaskParam.image,
+          'title':uploadTaskParam.title,
+          'desc':uploadTaskParam.desc,
+          'priority':uploadTaskParam.priority,
+          'dueDate':uploadTaskParam.dueDate,
         }
     ) ;
     return 'Add Task successfully';
@@ -98,15 +80,14 @@ class HomeDataSourceImplementation implements HomeDataSource{
 
   @override
   Future<String> uploadTAskImage({required File image}) async{
-    FormData formData=FormData();// علشان ابعتها بالطريقة اللي الخادم يفهمها
-    formData.files.add(MapEntry(// نبعتها في شكل map
+    FormData formData=FormData();
+    formData.files.add(MapEntry(
         'image',
         await MultipartFile.fromFile(
-          image.path,// مسار الملف
-          filename: image.path.split('/').last,// اسم الملف يتم استخراجة من الملف
-          contentType: DioMediaType.parse("image/${image.path.split('.').length}"),//نوع الملف MIME (مثل image/jpeg أو image/png)
+          image.path,
+          filename: image.path.split('/').last,
+          contentType: DioMediaType.parse("image/${image.path.split('.').length}"),
         )));
-// send image(formData) to api
     final response=await apiService.post(
         EndPoints.uploadImage,
         formData: false,

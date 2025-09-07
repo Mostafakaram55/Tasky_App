@@ -6,6 +6,7 @@ import 'package:tasky_app/config/routes/app_routes.dart';
 import 'package:tasky_app/features/home/presentation/views/home_view.dart';
 import 'package:tasky_app/features/home/presentation/widgets/upload_image_task.dart';
 import 'package:tasky_app/features/home/presentation/widgets/upload_task_text_fileds.dart';
+import 'package:toastification/toastification.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import '../../../../core/functions/show_snak_bar.dart';
 import '../../../../core/widgets/custom_button_widget.dart';
@@ -22,12 +23,26 @@ class UploadTaskViewBody extends StatelessWidget {
         if(state is UploadTaskImageSuccess){
           context.read<TaskOperationsCubit>().uploadTask();
         }else if(state is UploadTaskImageError){
-          customSnackBar(context,CustomSnackBar.error(message: state.errorMassage));
+          showToastificationWidget(
+              message: state.errorMassage,
+              context: context,
+              notificationType:ToastificationType.error
+          );
         }else if(state is SuccessUploadTaskState){
-          customSnackBar(context,CustomSnackBar.success(message: state.successMessage));
+          showToastificationWidget(
+              message: state.successMessage,
+              context: context,
+
+              notificationType:ToastificationType.success
+          );
           context.pop(true);
         }else if(state is ErrorUploadTaskState){
-          customSnackBar(context,CustomSnackBar.error(message: state.errorMessage));
+          showToastificationWidget(
+              message: state.errorMessage,
+              context: context,
+
+              notificationType:ToastificationType.error
+          );
         }
       },
       builder: (context,state){
@@ -48,7 +63,12 @@ class UploadTaskViewBody extends StatelessWidget {
                         if(context.read<TaskOperationsCubit>().imageTask!=null ){
                           context.read<TaskOperationsCubit>().uploadTaskImage();
                         }else{
-                          customSnackBar(context,CustomSnackBar.error(message: 'please select image'));
+                          showToastificationWidget(
+                              message:'please select image',
+                              context: context,
+
+                              notificationType:ToastificationType.error
+                          );
                         }
                       }
                     },

@@ -31,15 +31,19 @@ class UserDataItem extends StatelessWidget {
             ),
             SizedBox(height: 10.h,),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomTextWidget(
-                    title: subtitle,
-                    colorText:Colors.blueGrey,
-                    size: 18.sp,
-                    fontWeight: FontWeight.w700
+                Expanded(
+                  child: CustomTextWidget(
+                      title: subtitle,
+                      colorText:Colors.blueGrey,
+                      size: 18.sp,
+                      fontWeight: FontWeight.w700
+                  ),
                 ),
-                Spacer(),
-                textCopy??SizedBox(width: 30.h,),
+
+               if( textCopy!=null)
+                 textCopy!
               ],
             ),
           ],

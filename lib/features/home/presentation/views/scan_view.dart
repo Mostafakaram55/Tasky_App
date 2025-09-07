@@ -63,8 +63,8 @@ class _ScanViewState extends State<ScanView> {
             AppRouter.detailsView,
             extra: widget.contextForBloc.read<GetTasksCubit>().taskById,
           );
-        }else if(state is GetTaskByIdSuccess){
-
+        }else if(state is GetTaskByIdError){
+           CustomTextWidget(title: state.errorMessage, colorText: Colors.black, size: 20, fontWeight: FontWeight.w500);
         }else if(state is GetTaskByIdLoading){
           controller?.stopCamera();
         }
@@ -79,7 +79,7 @@ class _ScanViewState extends State<ScanView> {
             appBar: AppBar(
               centerTitle: false,
               backgroundColor:ColorManager.buttonColor,
-              title:CustomTextWidget(title: TextManager.scan, colorText: Colors.white, size: 16.sp, fontWeight: FontWeight.w700),
+              title:CustomTextWidget(title: TextManager.scan, colorText: Colors.white, size: 18.sp, fontWeight: FontWeight.w700),
               leading: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: ArrowLeftIcon(

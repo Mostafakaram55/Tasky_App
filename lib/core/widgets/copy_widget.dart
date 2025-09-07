@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tasky_app/core/functions/show_snak_bar.dart';
+import 'package:toastification/toastification.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
+import '../functions/show_snak_bar.dart';
 import '../utils/app_colors.dart';
 
 class CopyIconButton extends StatelessWidget {
@@ -24,7 +25,11 @@ class CopyIconButton extends StatelessWidget {
         ),
         onPressed: () {
           Clipboard.setData(ClipboardData(text: textToCopy));
-         customSnackBar(context, CustomSnackBar.success(message: 'Text copied successfully!'));
+          showToastificationWidget(
+            message:'Text copied successfully!',
+            context: context,
+            notificationType:ToastificationType.success
+          );
         },
       ),
     );

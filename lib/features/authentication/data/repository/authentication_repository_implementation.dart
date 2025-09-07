@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart' show Either, Left, Right;
 import 'package:dio/dio.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/app_constants.dart';
 import '../../domain/entities/authentication_entity.dart';
 import '../../domain/repository/authentication_repository.dart';
 import '../data_source/authentication_remote_data_source.dart';
@@ -30,29 +31,18 @@ class  AuthenticationRepositoryImplementation implements  AuthenticationReposito
 
   @override
   Future<Either<Failure, AuthenticationEntity>> signUpOperation({
-    required String phone,
-    required String password,
-    required String displayName,
-    required String experienceYears,
-    required String address,
-    required String level
+    required SignUpParam signUpParam,
   }) async{
     try{
       var user =await authenticationDataSource.signUpUser(
-          address: address,
-          phone: phone,
-          displayName: displayName,
-          experienceYears: experienceYears,
-          level: level,
-          password: password
+        signIpParam:signUpParam ,
+
       );
       return Right(user);
     }catch (e){
       if(e is DioException){
-        print(e.toString());
         return Left(ServerFailure.fromDioError(e));
       }
-      print(e.toString());
       return Left(ServerFailure(e.toString()));
     }
   }

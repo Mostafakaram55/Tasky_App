@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tasky_app/core/utils/app_colors.dart';
 
 import '../utils/app_constants.dart';
+import 'custom_text_widget.dart';
 
 class CustomDropdown extends StatelessWidget {
   const CustomDropdown({
@@ -64,13 +65,12 @@ class CustomDropdown extends StatelessWidget {
         ),
         isExpanded: true,
         borderRadius: BorderRadius.circular(8.r),
-        hint: Text(
-          hintText,
-          style: GoogleFonts.montserrat(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w400,
-            color:Colors.grey
-          ),
+        hint:CustomTextWidget(
+          title: hintText,
+          size: 14.sp,
+          fontWeight: FontWeight.w400,
+          maxLines: 1,
+          colorText: Colors.grey,
         ),
         items: items,
         onChanged: onChange,
