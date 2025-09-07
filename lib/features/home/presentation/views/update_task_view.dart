@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tasky_app/features/home/presentation/cubits/task_crud_cubit/task_curd_cubit.dart';
 import 'package:tasky_app/features/home/presentation/cubits/task_crud_cubit/task_curd_states.dart';
@@ -62,7 +63,7 @@ class _UpdateTaskViewState extends State<UpdateTaskView> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: ArrowLeftIcon(
-            operation: AppRouter.goBack,
+            operation: context.pop,
           ),
         ),
         leadingWidth: 50.w,

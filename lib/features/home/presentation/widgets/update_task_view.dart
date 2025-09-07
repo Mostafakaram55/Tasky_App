@@ -164,7 +164,7 @@ class UpdateTaskViewBody extends StatelessWidget {
                                 if (context.mounted) {
                                   context.pushReplacement(AppRouter.kHomeView);
                                  }
-                              });
+                        });
                         }
                       }
                     },

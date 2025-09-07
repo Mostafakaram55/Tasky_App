@@ -44,7 +44,7 @@ class _UploadTaskViewState extends State<UploadTaskView> {
                 leading: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: ArrowLeftIcon(
-                    operation: AppRouter.goBack,
+                    operation: context.pop,
                   ),
                 ),
                 leadingWidth: 50.w,
