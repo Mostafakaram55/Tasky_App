@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView>
             width: 50.w,
           ),
         ),
-        leadingWidth: 100,
+        leadingWidth: 100.w,
         elevation: 0,
         backgroundColor: ColorManager.buttonColor,
         actions: [

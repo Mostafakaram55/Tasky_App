@@ -109,10 +109,13 @@ abstract class AppRouter {
         ),
         GoRoute(
           path: '/detailsView',
-          builder: (context, state) =>  BlocProvider(
-            create: (context) => getIt.get<TaskOperationsCubit>(),
-            child: DetailsTaskView(),
-          ),
+           builder: (context, state) {
+             final iScanFrom = state.uri.queryParameters['isCanFrom'] == 'true';
+             return BlocProvider(
+               create: (context) => getIt.get<TaskOperationsCubit>(),
+               child: DetailsTaskView(whereFrom: iScanFrom,),
+             );
+           }
         ),
         GoRoute(
           path: '/addTaskView',

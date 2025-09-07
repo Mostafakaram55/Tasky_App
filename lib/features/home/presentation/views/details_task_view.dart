@@ -22,7 +22,8 @@ import '../widgets/edite_and_delete_button.dart';
 import '../widgets/task_details_view_body.dart';
 
 class DetailsTaskView extends StatelessWidget {
-  const DetailsTaskView({super.key});
+  const DetailsTaskView({super.key, required this.whereFrom});
+  final bool whereFrom;
   @override
   Widget build(BuildContext context) {
     final task = GoRouterState.of(context).extra as TaskEntity;
@@ -32,14 +33,12 @@ class DetailsTaskView extends StatelessWidget {
           showToastificationWidget(
               message:state.successDeleteM,
               context: context,
-
               notificationType:ToastificationType.success
           );
         }else if(state is DeleteTaskError){
           showToastificationWidget(
               message:state.errorM,
               context: context,
-
               notificationType:ToastificationType.error
           );
         }
@@ -58,7 +57,13 @@ class DetailsTaskView extends StatelessWidget {
             leading: Padding(
               padding:  EdgeInsets.only(left: 20.w),
               child: ArrowLeftIcon(
-                operation: context.pop
+                operation: (){
+                  if(whereFrom==true){
+                    context.pop(true);
+                    context.pop(true);
+                  }
+                  context.pop();
+                }
               ),
             ),
             leadingWidth: 50.w,
@@ -94,6 +99,14 @@ class DetailsTaskView extends StatelessWidget {
                                 child: DeleteAndCancelTaskButton(
                                   operation: (){
                                     context.read<TaskOperationsCubit>().removeTask(taskId: task.id).then((value){
+                                      if(whereFrom==true){
+                                        if(context.mounted){
+                                          context.pop(true);
+                                          context.pop(true);
+                                          context.pop(true);
+                                          context.pop(true);
+                                        }
+                                      }
                                       if(context.mounted){
                                         context.pop(true);
                                         context.pop(true);

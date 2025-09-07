@@ -4,14 +4,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:tasky_app/config/routes/app_routes.dart';
 import 'package:tasky_app/core/utils/app_colors.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/features/home/presentation/cubits/get_task_cubit/get_task_states.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../../config/icons/icons_broken.dart';
+import '../../../../core/functions/show_snak_bar.dart';
 import '../../../../core/widgets/arrow_left_icon.dart';
 import '../../../../core/widgets/custom_icon_button.dart';
 import '../../../../core/widgets/custom_text_widget.dart';
@@ -48,23 +51,20 @@ class _ScanViewState extends State<ScanView> {
     });
   }
 
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetTasksCubit, GetTasksStates>(
       listener: (context, state) {
         if (state is GetTaskByIdSuccess) {
-          AppRouter.navigateTo(
-            AppRouter.detailsView,
-            extra: widget.contextForBloc.read<GetTasksCubit>().taskById,
-          );
+          context.push('/detailsView?isCanFrom=true', extra: widget.contextForBloc.read<GetTasksCubit>().taskById,);
         }else if(state is GetTaskByIdError){
-           CustomTextWidget(title: state.errorMessage, colorText: Colors.black, size: 20, fontWeight: FontWeight.w500);
+          showToastificationWidget(
+              message:'QR scan failed. The ID may be corrupted or invalid',
+              context: context,
+              notificationType:ToastificationType.error
+          );
         }else if(state is GetTaskByIdLoading){
           controller?.stopCamera();
         }
@@ -83,7 +83,9 @@ class _ScanViewState extends State<ScanView> {
               leading: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: ArrowLeftIcon(
-                  operation: AppRouter.goBack,
+                  operation: (){
+                    context.pop();
+                  },
                 ),
               ),
               leadingWidth: 50.w,

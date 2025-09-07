@@ -12,11 +12,9 @@ import 'package:tasky_app/features/home/presentation/cubits/task_crud_cubit/task
 import 'package:tasky_app/features/home/presentation/widgets/empty_list.dart';
 import 'package:tasky_app/features/home/presentation/widgets/task_item_widget.dart';
 import 'package:toastification/toastification.dart';
-import '../../../../config/routes/app_routes.dart';
 import '../../../../core/functions/show_snak_bar.dart';
 import '../cubits/get_task_cubit/get_task_cubit.dart';
-import 'alert_dialog_widget.dart';
-import 'delete_task_button.dart';
+
 
 class AllTasksListView extends StatelessWidget {
   const AllTasksListView({super.key});
@@ -125,7 +123,7 @@ class AllTasksListView extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: (){
-                    context.push(AppRouter.detailsView,extra:tasks[index],).then((value){
+                    context.push('/detailsView?isCanFrom=false',extra:tasks[index],).then((value){
                       if(value!=null&&value==true){
                         if(context.mounted){
                           context.read<GetTasksCubit>().getAllTasks(newGetList: true);
