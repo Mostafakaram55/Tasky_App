@@ -101,10 +101,7 @@ class DetailsTaskView extends StatelessWidget {
                                     context.read<TaskOperationsCubit>().removeTask(taskId: task.id).then((value){
                                       if(whereFrom==true){
                                         if(context.mounted){
-                                          context.pop(true);
-                                          context.pop(true);
-                                          context.pop(true);
-                                          context.pop(true);
+                                          context.go(AppRouter.kHomeView,extra: true);
                                         }
                                       }
                                       if(context.mounted){

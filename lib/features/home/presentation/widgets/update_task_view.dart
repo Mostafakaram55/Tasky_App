@@ -6,6 +6,7 @@ import 'package:tasky_app/config/routes/app_routes.dart';
 import 'package:tasky_app/core/functions/show_snak_bar.dart';
 import 'package:tasky_app/core/utils/app_strings.dart';
 import 'package:tasky_app/core/widgets/custom_button_widget.dart';
+import 'package:tasky_app/features/home/presentation/cubits/get_task_cubit/get_task_cubit.dart';
 import 'package:tasky_app/features/home/presentation/cubits/task_crud_cubit/task_curd_states.dart';
 import 'package:tasky_app/features/home/presentation/views/home_view.dart';
 import 'package:tasky_app/features/home/presentation/widgets/select_task_priority.dart';
@@ -162,7 +163,7 @@ class UpdateTaskViewBody extends StatelessWidget {
                               )
                               .then((value) {
                                 if (context.mounted) {
-                                  context.pushReplacement(AppRouter.kHomeView);
+                                  context.go(AppRouter.kHomeView,extra: true);
                                  }
                               });
                         }

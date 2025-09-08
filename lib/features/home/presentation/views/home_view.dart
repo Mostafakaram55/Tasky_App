@@ -35,7 +35,14 @@ class _HomeViewState extends State<HomeView>
     AppConstants.tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
-
+@override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final isRefresh=GoRouterState.of(context).extra as bool ?;
+    if(isRefresh==true){
+      context.read<GetTasksCubit>().getAllTasks(newGetList: true);
+    }
+  }
   @override
   void dispose() {
     AppConstants.tabController.dispose();
