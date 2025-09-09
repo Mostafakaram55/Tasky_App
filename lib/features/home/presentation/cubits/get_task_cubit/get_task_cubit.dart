@@ -27,7 +27,6 @@ class GetTasksCubit extends Cubit<GetTasksStates>{
   Future<void>getAllTasks({bool?newGetList})async{
 
     if(newGetList??false){
-      print('me');
       pageNumber=1;
       tasks=[];
     }

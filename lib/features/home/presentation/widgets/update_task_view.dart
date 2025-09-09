@@ -44,7 +44,7 @@ class UpdateTaskViewBody extends StatelessWidget {
             user: taskEntity.user,
           ).then((value){
             if (context.mounted) {
-              context.pushReplacement(AppRouter.kHomeView);
+              context.go(AppRouter.kHomeView,extra: true);
             }
           });
         } else if (state is UploadTaskImageError) {
